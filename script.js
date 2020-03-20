@@ -1,11 +1,6 @@
 console.log("hallo, dit is script");
 console.log(randomPersonData.length);
 
-// const regionNames = randomPersonData.map(item => item.region);
-// const uniqueRegionNames = regionNames.filter((region, index, regions) => {
-//   return regions.indexOf(region) === index;
-// });
-
 const addRegionsToDom = function() {
   const regionList = document.getElementById("resultaat");
   const regionNames = randomPersonData.map(item => item.region);
@@ -19,12 +14,10 @@ const addRegionsToDom = function() {
     const listItem = document.createElement("li");
     listItem.innerText = item;
 
-    //console.log(listItem);
     return listItem;
   });
 
   listItems.forEach(function(item) {
     regionList.appendChild(item);
-    console.log(item);
   });
 };
