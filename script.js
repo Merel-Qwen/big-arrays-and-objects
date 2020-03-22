@@ -21,3 +21,15 @@ const addRegionsToDom = function() {
     regionList.appendChild(item);
   });
 };
+
+const steenbokVrouwen = function() {
+  console.log("steenbokVrouwen is geklikt");
+  const womenList = document.getElementById("resultaat");
+  womenList.innerText = "";
+  const allAges = randomPersonData.map(item => item.age);
+  console.log(allAges);
+  const regionNames = randomPersonData.map(item => item.name);
+
+  const womanNames = regionNames.sort();
+  console.log(womanNames);
+};
