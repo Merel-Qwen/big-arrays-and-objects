@@ -23,27 +23,63 @@ const addRegionsToDom = function() {
   });
 };
 
-const steenbokVrouwen = function() {
-  console.log("steenbokVrouwen is geklikt");
-  const womenList = document.getElementById("resultaat");
-  womenList.innerText = "";
-  const allAges = randomPersonData.map(item => item.age);
-  console.log(allAges);
-  const olderAge = allAges.filter(function checkAge(age) {
-    return age >= 30;
-  });
-  console.log("dit is older age", olderAge);
-
+const names = function() {
   const allNames = randomPersonData.map(item => item.name);
 
   const womanNames = allNames.sort();
-  console.log(womanNames);
+  return womanNames;
+};
+console.log("names", names());
+
+const olderThan = function() {
+  const allAges = randomPersonData.map(item => item.age);
+  //console.log(allAges);
+  const olderAge = allAges.filter(function checkAge(age) {
+    return age >= 30;
+  });
+  return olderAge;
+};
+console.log("olderThan", olderThan());
+
+const filterWomen = data => {
+  women = randomPersonData.filter(person => person.gender === "female");
+  return women;
+};
+console.log("filerW", filterWomen());
+
+const filterBirthday = function() {
+  birthdayfilter = randomPersonData.filter(person => {
+    let [day, month] = person.birthday.dmy.split("/");
+    return (day > 22 && month == 12) || (day < 19 && month === 1);
+  });
+
+  return birthdayfilter;
+};
+console.log("filterBirthday", filterBirthday());
+
+const addPeopleList = randomPersonData => {
+  let listnode = document.createElement("li");
+  let divnode = document.createElement("div");
+  let imgnode = document.createElement("img");
+  let namenode = document.createElement("p");
+
+  imgnode.src = randomPersonData.photo;
+  namenode.innerText = randomPersonData.name + " " + randomPersonData.surname;
+
+  divnode.appendChild(namenode);
+  divnode.appendChild(imgnode);
+  document
+    .getElementById("lijst")
+    .appendChild(listnode)
+    .appendChild(divnode);
 };
 
-allGender = randomPersonData.map(item => item.gender);
-console.log(allGender);
-const allFemale = allGender.filter(function checkGender(gender) {
-  return gender === "female";
-});
+const peopleToDom = () => {
+  filterBirthday(olderThan(filterWomen(names()))).forEach(element => {
+    addPeopleList(element);
+  });
+};
 
-console.log(allFemale);
+document.getElementById("steenbok").addEventListener("click", () => {
+  peopleToDom();
+});
